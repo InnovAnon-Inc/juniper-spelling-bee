@@ -9,11 +9,11 @@ set -euxo nounset -o pipefail
 (( UID ))
 (( $# == 2 ))
 
-v="storage/movies/Messages"
+v="../storage/movies/Messages"
 v1="$v/$(ls -tr1 "$v" | tail -n3 | head -n1)"  # Video A
 v2="$v/$(ls -tr1 "$v" | tail -n2 | head -n1)"  # Video B
 v3="$v/$(ls -tr1 "$v" | tail -n1)"             # Video C
-vout="storage/downloads/$1.mp4"
+vout="../storage/downloads/$1.mp4"
 
 # FFmpeg 6-segment concat graph: A -> B -> A -> C -> A -> B -> A
 ffmpeg -i "$v1" -i "$v2" -i "$v3" -filter_complex \
@@ -28,4 +28,4 @@ ffmpeg -i "$v1" -i "$v2" -i "$v3" -filter_complex \
 
 # Cleanup inputs and generated wav files
 rm -v "$v1" "$v2" "$v3"
-rm -v "storage/downloads/morse_432hz_$1.wav" "storage/downloads/morse_432hz_$2.wav"
+rm -v "../storage/downloads/morse_432hz_$1 _.wav" "../storage/downloads/morse_432hz_$2 _.wav"

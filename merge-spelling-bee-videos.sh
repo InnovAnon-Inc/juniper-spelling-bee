@@ -7,10 +7,10 @@ set -euxo nounset -o pipefail
 (( UID ))
 (( $# == 1 ))
 
-v=storage/movies/Messages
+v=../storage/movies/Messages
 v1="$v/$(ls -tr1 $v | tail -n2 | head -n1)"
 v2="$v/$(ls -tr1 $v | tail -n1)"
-v3="storage/downloads/$1.mp4"
+v3="../storage/downloads/$1.mp4"
 
 ffmpeg -i "$v1" -i "$v2" -filter_complex \
 "[0:v]fps=30,format=yuv420p[v0]; \
@@ -22,4 +22,4 @@ ffmpeg -i "$v1" -i "$v2" -filter_complex \
  [v0][a0][v1][a1][v2][a2]concat=n=3:v=1:a=1[v][a]" \
 -map "[v]" -map "[a]" -c:v libx264 -crf 18 -c:a aac "$v3"
 
-rm -v "$v1" "$v2" "storage/downloads/morse_432hz_$1 _.wav"
+rm -v "$v1" "$v2" "../storage/downloads/morse_432hz_$1 _.wav"
