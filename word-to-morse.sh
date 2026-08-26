@@ -13,5 +13,5 @@ set -euxo nounset -o pipefail
 for phrase in "$@" ; do
 #echo "$phrase _" | ssh lunchbox venv/bin/python Downloads/morse-3.py
 #scp "lunchbox:morse_432hz_$phrase _.wav" storage/downloads/
-env -C storage/downloads python word-to-morse.py <<< "$phrase _"
+env -C ../storage/downloads python word-to-morse.py <<< "$phrase _"
 done
