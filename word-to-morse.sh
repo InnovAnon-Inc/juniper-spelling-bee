@@ -6,8 +6,8 @@
 set -euxo nounset -o pipefail
 (( UID ))
 (( $# ))
-[[ -n ${VIRTUAL_ENV:-} ]] ||
-. ~/venv/bin/activate
+#[[ -n ${VIRTUAL_ENV:-} ]] ||
+#. ~/venv/bin/activate
 
 #read -r phrase
 for phrase in "$@" ; do
