@@ -11,7 +11,12 @@ set -euxo nounset -o pipefail
 
 #read -r phrase
 for phrase in "$@" ; do
-#echo "$phrase _" | ssh lunchbox venv/bin/python Downloads/morse-3.py
-#scp "lunchbox:morse_432hz_$phrase _.wav" storage/downloads/
-env -C ../storage/downloads python "$(readlink -f "$PWD")/word-to-morse.py" <<< "$phrase _"
+
+echo "$phrase _" |
+ssh lunchbox venv/bin/python juniper-spelling-bee/word-to-morse.py
+
+scp "lunchbox:morse_432hz_$phrase _.wav" storage/downloads/
+ssh lunchbox rm -v "morse_432hz_$phrase _.wav"
+
+#env -C ../storage/downloads python "$(readlink -f "$PWD")/word-to-morse.py" <<< "$phrase _"
 done
