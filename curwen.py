@@ -8,17 +8,11 @@ import wave
 # ==========================================
 # CONFIGURATION & METRICS
 # ==========================================
-OUTPUT_DIR = "output_warmups"
+OUTPUT_DIR = "../storage/downloads/output_warmups"
 BPM = 60
 TICK_DURATION = 60.0 / BPM     # 1.0 second per note
 SAMPLE_RATE = 44100            # Standard WAV Sample Rate
-A4_FREQ = 432.0                # Master Tuning
-
-NOTE_SEMITONES = {
-    'C': -9, 'C#': -8, 'Db': -8, 'D': -7, 'D#': -6, 'Eb': -6,
-    'E': -5, 'F': -4, 'F#': -3, 'Gb': -3, 'G': -2, 'G#': -1,
-    'Ab': -1, 'A': 0, 'A#': 1, 'Bb': 1, 'B': 2
-}
+A4_FREQ = 432.0                # Master Reference Pitch
 
 def midi_to_freq(midi_note: int) -> float:
     # A4 (MIDI 69) = 432.0 Hz
@@ -59,7 +53,6 @@ MODE_NAMES = {
     "Neapolitan Minor": ["Neapolitan Minor", "Lydian Sharp 6 Sharp 3", "Major Sharp 5", "Hungarian Gypsy", "Locrian Major", "Ionian Sharp 2", "Ultra Locrian"]
 }
 
-# 1 - 5 - 4 - 6 - 3 - 2 - 7 Chord Progression Order
 CHORD_PROGRESSION_ORDER = [0, 4, 3, 5, 2, 1, 6]
 
 def get_exact_modal_solfege(parent_name: str, mode_degree: int) -> list[str]:
@@ -73,7 +66,7 @@ def get_exact_modal_solfege(parent_name: str, mode_degree: int) -> list[str]:
         parent_idx = (i + mode_degree - 1) % num_notes
         actual_semitones = (parent_pcs[parent_idx] - mode_offset) % 12
         expected_semitones = MAJOR_INTERVALS[i]
-        
+
         alteration = actual_semitones - expected_semitones
         if alteration > 6: alteration -= 12
         if alteration < -6: alteration += 12
@@ -88,79 +81,87 @@ def get_parallel_mode_midis(parent_name: str, mode_degree: int, tonic_midi: int 
     scale = PARENT_FAMILIES[parent_name]
     num_notes = len(scale)
     mode_offset = scale[mode_degree - 1]
-    
+
     midis = []
     for i in range(num_notes):
         parent_idx = (i + mode_degree - 1) % num_notes
         interval = (scale[parent_idx] - mode_offset) % 12
         midis.append(tonic_midi + interval)
-        
-    midis.append(tonic_midi + 12) # Octave completion
+
+    midis.append(tonic_midi + 12)
     return midis
 
 # ==========================================
-# PATTERN BUILDING LOGIC
+# COMBINED PATTERN BUILDERS
 # ==========================================
-def build_scale_ascending(midis: list[int], solfege: list[str]):
-    return list(zip(midis, solfege))
+def build_combined_scale(midis: list[int], solfege: list[str]):
+    # Ascending then Descending
+    up = list(zip(midis, solfege))
+    down = list(zip(reversed(midis[:-1]), reversed(solfege[:-1])))
+    return up + down
 
-def build_scale_descending(midis: list[int], solfege: list[str]):
-    return list(zip(reversed(midis), reversed(solfege)))
-
-def build_leaps_ascending(midis: list[int], solfege: list[str]):
-    # Up a leap (3rd), down a step, up a leap...
+def build_combined_leaps(midis: list[int], solfege: list[str]):
+    """
+    Leaps Up & Down seamlessly without duplicating top note.
+    Ascending: Up 3rd, Down Step (Do - Mi, Re - Fa, Mi - So...)
+    Turn: ... So - Ti - La - Do' - Ti - Re' - Ti - Do' ...
+    Descending: Down 3rd, Up Step (... Do' - La, Ti - So, La - Fa ... Do)
+    """
     sequence = []
-    n = len(midis) - 1 # excluding octave top for index stepping
+    n = len(midis) - 1 # 7 steps
+
+    # Ascending leaps
     for i in range(n - 1):
         sequence.append((midis[i], solfege[i]))
         sequence.append((midis[i+2], solfege[i+2]))
-    sequence.append((midis[-1], solfege[-1]))
-    return sequence
 
-def build_leaps_descending(midis: list[int], solfege: list[str]):
-    # Down a leap (3rd), up a step, down a leap...
+    # Over-shoot turn at the top (... Ti - Do' - La - Ti - So ...)
+    # midis[-2] = 7th (Ti), midis[-1] = Octave (Do')
+    sequence.append((midis[-2], solfege[-2]))
+    sequence.append((midis[-1], solfege[-1]))
+
+    # Descending leaps
     rev_m = list(reversed(midis))
     rev_s = list(reversed(solfege))
-    sequence = []
-    n = len(rev_m) - 1
-    for i in range(n - 1):
-        sequence.append((rev_m[i], rev_s[i]))
-        sequence.append((rev_m[i+2], rev_s[i+2]))
+
+    for i in range(1, n - 1):
+        sequence.append((rev_m[i-1], rev_s[i-1]))
+        sequence.append((rev_m[i+1], rev_s[i+1]))
+
+    # Final grounding step to tonic
+    sequence.append((rev_m[-2], rev_s[-2]))
     sequence.append((rev_m[-1], rev_s[-1]))
+
     return sequence
 
-def build_three_notes_ascending(midis: list[int], solfege: list[str]):
-    # 2 steps up, 1 step down: (Do Re Mi, Re Mi Fa, Mi Fa So...)
+def build_combined_three_notes(midis: list[int], solfege: list[str]):
+    # 3 notes up, 3 notes down (Do-Re-Mi, Re-Mi-Fa ... Fa-Mi-Re, Mi-Re-Do)
     sequence = []
     n = len(midis) - 1
+
+    # Ascending 3-note groups
     for i in range(n - 1):
         sequence.append((midis[i], solfege[i]))
         sequence.append((midis[i+1], solfege[i+1]))
         sequence.append((midis[i+2], solfege[i+2]))
-    sequence.append((midis[-1], solfege[-1]))
-    return sequence
 
-def build_three_notes_descending(midis: list[int], solfege: list[str]):
+    # Descending 3-note groups
     rev_m = list(reversed(midis))
     rev_s = list(reversed(solfege))
-    sequence = []
-    n = len(rev_m) - 1
+
     for i in range(n - 1):
         sequence.append((rev_m[i], rev_s[i]))
         sequence.append((rev_m[i+1], rev_s[i+1]))
         sequence.append((rev_m[i+2], rev_s[i+2]))
-    sequence.append((rev_m[-1], rev_s[-1]))
+
     return sequence
 
 def build_chord_arpeggios(midis: list[int], solfege: list[str]):
-    # I-V-IV-VI-III-II-VII 7th Chords
-    # Arpeggiated: Root-3rd-5th-7th-5th-3rd-Root
+    # I-V-IV-VI-III-II-VII 7th Chords (Arpeggiated Up and Down)
     extended_midis = midis[:-1] + [m + 12 for m in midis]
     extended_solfege = solfege[:-1] + [s + "'" for s in solfege]
-    
-    sequence = []
-    num_notes = len(midis) - 1
 
+    sequence = []
     for deg_idx in CHORD_PROGRESSION_ORDER:
         chord_indices = [
             deg_idx,
@@ -173,51 +174,47 @@ def build_chord_arpeggios(midis: list[int], solfege: list[str]):
         ]
         for idx in chord_indices:
             sequence.append((extended_midis[idx], extended_solfege[idx]))
-            
+
     return sequence
 
 # ==========================================
-# AUDIO SYNTHESIS & WAV EXPORT ENGINE
+# AUDIO SYNTHESIS ENGINE
 # ==========================================
 def synthesize_tone(freq: float, duration: float, sample_rate: int = 44100) -> list[float]:
     num_samples = int(sample_rate * duration)
     samples = []
-    
-    # ADSR Envelope for smooth vocal-like tracking
+
     attack_samples = int(sample_rate * 0.05)
     release_samples = int(sample_rate * 0.15)
-    
+
     for i in range(num_samples):
         t = i / sample_rate
-        # Warm dual-harmonic tone synthesis
         val = 0.7 * math.sin(2 * math.pi * freq * t) + 0.3 * math.sin(4 * math.pi * freq * t)
-        
-        # Envelope calculation to eliminate clicks
+
         envelope = 1.0
         if i < attack_samples:
             envelope = i / attack_samples
         elif i > (num_samples - release_samples):
             envelope = (num_samples - i) / release_samples
-            
+
         samples.append(val * envelope * 0.5)
-        
+
     return samples
 
 def write_wav_file(filename: str, pattern: list[tuple[int, str]]):
     filepath = os.path.join(OUTPUT_DIR, filename)
     all_samples = []
-    
+
     for midi_note, _ in pattern:
         freq = midi_to_freq(midi_note)
         samples = synthesize_tone(freq, TICK_DURATION, SAMPLE_RATE)
         all_samples.extend(samples)
-        
-    # Pack into 16-bit PCM WAV
+
     with wave.open(filepath, 'w') as wav_file:
-        wav_file.setnchannels(1) # Mono
-        wav_file.setsampwidth(2) # 16-bit
+        wav_file.setnchannels(1)
+        wav_file.setsampwidth(2)
         wav_file.setframerate(SAMPLE_RATE)
-        
+
         for sample in all_samples:
             packed_sample = struct.pack('h', int(sample * 32767))
             wav_file.writeframes(packed_sample)
@@ -230,16 +227,13 @@ def main():
         os.makedirs(OUTPUT_DIR)
 
     print("==========================================================================")
-    print(" GENERATING PARALLEL C VOCAL WARMUPS (A4 = 432 Hz | 60 BPM)")
+    print(" GENERATING PARALLEL C UNIFIED VOCAL WARMUPS (A4 = 432 Hz | 60 BPM)")
     print("==========================================================================\n")
 
     exercise_builders = {
-        "Ascending_Scale": build_scale_ascending,
-        "Descending_Scale": build_scale_descending,
-        "Ascending_Leaps": build_leaps_ascending,
-        "Descending_Leaps": build_leaps_descending,
-        "Ascending_Three_Notes": build_three_notes_ascending,
-        "Descending_Three_Notes": build_three_notes_descending,
+        "Full_Scale": build_combined_scale,
+        "Leaps": build_combined_leaps,
+        "Three_Notes": build_combined_three_notes,
         "Diatonic_7th_Arpeggios": build_chord_arpeggios
     }
 
@@ -259,10 +253,10 @@ def main():
                 filename = f"{key_name}_{ex_name}.wav"
                 write_wav_file(filename, pattern)
                 file_count += 1
-                
-            print(f" -> Generated 7 WAV files for {key_name}\n")
 
-    print(f"[COMPLETE] Successfully generated {file_count} individual WAV files in '{OUTPUT_DIR}/'.")
+            print(f" -> Generated 4 combined WAV files for {key_name}\n")
+
+    print(f"[COMPLETE] Successfully generated {file_count} unified WAV files in '{OUTPUT_DIR}/'.")
 
 if __name__ == "__main__":
     main()
