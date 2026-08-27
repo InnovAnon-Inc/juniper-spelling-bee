@@ -1,0 +1,1962 @@
+{
+    "C_Ionian": {
+        "id": 1,
+        "parent_family": "Major",
+        "mode_degree": 1,
+        "mode_name": "Ionian",
+        "full_key_name": "C Ionian",
+        "spoken_title_text": "C Ionian, Mode 1 of Major",
+        "title_video_file": "Title_01_C_Ionian.mp4",
+        "file_slug": "C_Ionian",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            5,
+            7,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            65,
+            67,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fa",
+            "So",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fa - So - La - Ti - Do'"
+    },
+    "C_Dorian": {
+        "id": 2,
+        "parent_family": "Major",
+        "mode_degree": 2,
+        "mode_name": "Dorian",
+        "full_key_name": "C Dorian",
+        "spoken_title_text": "C Dorian, Mode 2 of Major",
+        "title_video_file": "Title_02_C_Dorian.mp4",
+        "file_slug": "C_Dorian",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            7,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            65,
+            67,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fa",
+            "So",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fa - So - La - Te - Do'"
+    },
+    "C_Phrygian": {
+        "id": 3,
+        "parent_family": "Major",
+        "mode_degree": 3,
+        "mode_name": "Phrygian",
+        "full_key_name": "C Phrygian",
+        "spoken_title_text": "C Phrygian, Mode 3 of Major",
+        "title_video_file": "Title_03_C_Phrygian.mp4",
+        "file_slug": "C_Phrygian",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            7,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            65,
+            67,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fa",
+            "So",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fa - So - Le - Te - Do'"
+    },
+    "C_Lydian": {
+        "id": 4,
+        "parent_family": "Major",
+        "mode_degree": 4,
+        "mode_name": "Lydian",
+        "full_key_name": "C Lydian",
+        "spoken_title_text": "C Lydian, Mode 4 of Major",
+        "title_video_file": "Title_04_C_Lydian.mp4",
+        "file_slug": "C_Lydian",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            6,
+            7,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            66,
+            67,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fi",
+            "So",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fi - So - La - Ti - Do'"
+    },
+    "C_Mixolydian": {
+        "id": 5,
+        "parent_family": "Major",
+        "mode_degree": 5,
+        "mode_name": "Mixolydian",
+        "full_key_name": "C Mixolydian",
+        "spoken_title_text": "C Mixolydian, Mode 5 of Major",
+        "title_video_file": "Title_05_C_Mixolydian.mp4",
+        "file_slug": "C_Mixolydian",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            5,
+            7,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            65,
+            67,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fa",
+            "So",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fa - So - La - Te - Do'"
+    },
+    "C_Aeolian": {
+        "id": 6,
+        "parent_family": "Major",
+        "mode_degree": 6,
+        "mode_name": "Aeolian",
+        "full_key_name": "C Aeolian",
+        "spoken_title_text": "C Aeolian, Mode 6 of Major",
+        "title_video_file": "Title_06_C_Aeolian.mp4",
+        "file_slug": "C_Aeolian",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            7,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            65,
+            67,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fa",
+            "So",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fa - So - Le - Te - Do'"
+    },
+    "C_Locrian": {
+        "id": 7,
+        "parent_family": "Major",
+        "mode_degree": 7,
+        "mode_name": "Locrian",
+        "full_key_name": "C Locrian",
+        "spoken_title_text": "C Locrian, Mode 7 of Major",
+        "title_video_file": "Title_07_C_Locrian.mp4",
+        "file_slug": "C_Locrian",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            6,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            65,
+            66,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fa",
+            "Se",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fa - Se - Le - Te - Do'"
+    },
+    "C_Harmonic_Minor": {
+        "id": 8,
+        "parent_family": "Harmonic Minor",
+        "mode_degree": 1,
+        "mode_name": "Harmonic Minor",
+        "full_key_name": "C Harmonic Minor",
+        "spoken_title_text": "C Harmonic Minor, Mode 1 of Harmonic Minor",
+        "title_video_file": "Title_08_C_Harmonic_Minor.mp4",
+        "file_slug": "C_Harmonic_Minor",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            7,
+            8,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            65,
+            67,
+            68,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fa",
+            "So",
+            "Le",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fa - So - Le - Ti - Do'"
+    },
+    "C_Locrian_Natural_6": {
+        "id": 9,
+        "parent_family": "Harmonic Minor",
+        "mode_degree": 2,
+        "mode_name": "Locrian Natural 6",
+        "full_key_name": "C Locrian Natural 6",
+        "spoken_title_text": "C Locrian Natural 6, Mode 2 of Harmonic Minor",
+        "title_video_file": "Title_09_C_Locrian_Natural_6.mp4",
+        "file_slug": "C_Locrian_Natural_6",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            6,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            65,
+            66,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fa",
+            "Se",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fa - Se - La - Te - Do'"
+    },
+    "C_Ionian_Sharp_5": {
+        "id": 10,
+        "parent_family": "Harmonic Minor",
+        "mode_degree": 3,
+        "mode_name": "Ionian Sharp 5",
+        "full_key_name": "C Ionian Sharp 5",
+        "spoken_title_text": "C Ionian Sharp 5, Mode 3 of Harmonic Minor",
+        "title_video_file": "Title_10_C_Ionian_Sharp_5.mp4",
+        "file_slug": "C_Ionian_Sharp_5",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            5,
+            8,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            65,
+            68,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fa",
+            "Si",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fa - Si - La - Ti - Do'"
+    },
+    "C_Dorian_Sharp_4": {
+        "id": 11,
+        "parent_family": "Harmonic Minor",
+        "mode_degree": 4,
+        "mode_name": "Dorian Sharp 4",
+        "full_key_name": "C Dorian Sharp 4",
+        "spoken_title_text": "C Dorian Sharp 4, Mode 4 of Harmonic Minor",
+        "title_video_file": "Title_11_C_Dorian_Sharp_4.mp4",
+        "file_slug": "C_Dorian_Sharp_4",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            6,
+            7,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            66,
+            67,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fi",
+            "So",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fi - So - La - Te - Do'"
+    },
+    "C_Phrygian_Dominant": {
+        "id": 12,
+        "parent_family": "Harmonic Minor",
+        "mode_degree": 5,
+        "mode_name": "Phrygian Dominant",
+        "full_key_name": "C Phrygian Dominant",
+        "spoken_title_text": "C Phrygian Dominant, Mode 5 of Harmonic Minor",
+        "title_video_file": "Title_12_C_Phrygian_Dominant.mp4",
+        "file_slug": "C_Phrygian_Dominant",
+        "pitch_classes": [
+            0,
+            1,
+            4,
+            5,
+            7,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            64,
+            65,
+            67,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Mi",
+            "Fa",
+            "So",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Mi - Fa - So - Le - Te - Do'"
+    },
+    "C_Lydian_Sharp_2": {
+        "id": 13,
+        "parent_family": "Harmonic Minor",
+        "mode_degree": 6,
+        "mode_name": "Lydian Sharp 2",
+        "full_key_name": "C Lydian Sharp 2",
+        "spoken_title_text": "C Lydian Sharp 2, Mode 6 of Harmonic Minor",
+        "title_video_file": "Title_13_C_Lydian_Sharp_2.mp4",
+        "file_slug": "C_Lydian_Sharp_2",
+        "pitch_classes": [
+            0,
+            3,
+            4,
+            6,
+            7,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            63,
+            64,
+            66,
+            67,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ri",
+            "Mi",
+            "Fi",
+            "So",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ri - Mi - Fi - So - La - Ti - Do'"
+    },
+    "C_Super_Locrian_Double_Flat_7": {
+        "id": 14,
+        "parent_family": "Harmonic Minor",
+        "mode_degree": 7,
+        "mode_name": "Super Locrian Double Flat 7",
+        "full_key_name": "C Super Locrian Double Flat 7",
+        "spoken_title_text": "C Super Locrian Double Flat 7, Mode 7 of Harmonic Minor",
+        "title_video_file": "Title_14_C_Super_Locrian_Double_Flat_7.mp4",
+        "file_slug": "C_Super_Locrian_Double_Flat_7",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            4,
+            6,
+            8,
+            9
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            64,
+            66,
+            68,
+            69,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fe",
+            "Se",
+            "Le",
+            "Tas",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fe - Se - Le - Tas - Do'"
+    },
+    "C_Melodic_Minor": {
+        "id": 15,
+        "parent_family": "Melodic Minor",
+        "mode_degree": 1,
+        "mode_name": "Melodic Minor",
+        "full_key_name": "C Melodic Minor",
+        "spoken_title_text": "C Melodic Minor, Mode 1 of Melodic Minor",
+        "title_video_file": "Title_15_C_Melodic_Minor.mp4",
+        "file_slug": "C_Melodic_Minor",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            7,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            65,
+            67,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fa",
+            "So",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fa - So - La - Ti - Do'"
+    },
+    "C_Dorian_Flat_2": {
+        "id": 16,
+        "parent_family": "Melodic Minor",
+        "mode_degree": 2,
+        "mode_name": "Dorian Flat 2",
+        "full_key_name": "C Dorian Flat 2",
+        "spoken_title_text": "C Dorian Flat 2, Mode 2 of Melodic Minor",
+        "title_video_file": "Title_16_C_Dorian_Flat_2.mp4",
+        "file_slug": "C_Dorian_Flat_2",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            7,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            65,
+            67,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fa",
+            "So",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fa - So - La - Te - Do'"
+    },
+    "C_Lydian_Augmented": {
+        "id": 17,
+        "parent_family": "Melodic Minor",
+        "mode_degree": 3,
+        "mode_name": "Lydian Augmented",
+        "full_key_name": "C Lydian Augmented",
+        "spoken_title_text": "C Lydian Augmented, Mode 3 of Melodic Minor",
+        "title_video_file": "Title_17_C_Lydian_Augmented.mp4",
+        "file_slug": "C_Lydian_Augmented",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            6,
+            8,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            66,
+            68,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fi",
+            "Si",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fi - Si - La - Ti - Do'"
+    },
+    "C_Lydian_Dominant": {
+        "id": 18,
+        "parent_family": "Melodic Minor",
+        "mode_degree": 4,
+        "mode_name": "Lydian Dominant",
+        "full_key_name": "C Lydian Dominant",
+        "spoken_title_text": "C Lydian Dominant, Mode 4 of Melodic Minor",
+        "title_video_file": "Title_18_C_Lydian_Dominant.mp4",
+        "file_slug": "C_Lydian_Dominant",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            6,
+            7,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            66,
+            67,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fi",
+            "So",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fi - So - La - Te - Do'"
+    },
+    "C_Mixolydian_Flat_6": {
+        "id": 19,
+        "parent_family": "Melodic Minor",
+        "mode_degree": 5,
+        "mode_name": "Mixolydian Flat 6",
+        "full_key_name": "C Mixolydian Flat 6",
+        "spoken_title_text": "C Mixolydian Flat 6, Mode 5 of Melodic Minor",
+        "title_video_file": "Title_19_C_Mixolydian_Flat_6.mp4",
+        "file_slug": "C_Mixolydian_Flat_6",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            5,
+            7,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            65,
+            67,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fa",
+            "So",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fa - So - Le - Te - Do'"
+    },
+    "C_Half-Diminished": {
+        "id": 20,
+        "parent_family": "Melodic Minor",
+        "mode_degree": 6,
+        "mode_name": "Half-Diminished",
+        "full_key_name": "C Half-Diminished",
+        "spoken_title_text": "C Half-Diminished, Mode 6 of Melodic Minor",
+        "title_video_file": "Title_20_C_Half-Diminished.mp4",
+        "file_slug": "C_Half-Diminished",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            6,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            65,
+            66,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fa",
+            "Se",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fa - Se - Le - Te - Do'"
+    },
+    "C_Altered_Scale": {
+        "id": 21,
+        "parent_family": "Melodic Minor",
+        "mode_degree": 7,
+        "mode_name": "Altered Scale",
+        "full_key_name": "C Altered Scale",
+        "spoken_title_text": "C Altered Scale, Mode 7 of Melodic Minor",
+        "title_video_file": "Title_21_C_Altered_Scale.mp4",
+        "file_slug": "C_Altered_Scale",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            4,
+            6,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            64,
+            66,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fe",
+            "Se",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fe - Se - Le - Te - Do'"
+    },
+    "C_Harmonic_Major": {
+        "id": 22,
+        "parent_family": "Harmonic Major",
+        "mode_degree": 1,
+        "mode_name": "Harmonic Major",
+        "full_key_name": "C Harmonic Major",
+        "spoken_title_text": "C Harmonic Major, Mode 1 of Harmonic Major",
+        "title_video_file": "Title_22_C_Harmonic_Major.mp4",
+        "file_slug": "C_Harmonic_Major",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            5,
+            7,
+            8,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            65,
+            67,
+            68,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fa",
+            "So",
+            "Le",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fa - So - Le - Ti - Do'"
+    },
+    "C_Dorian_Flat_5": {
+        "id": 23,
+        "parent_family": "Harmonic Major",
+        "mode_degree": 2,
+        "mode_name": "Dorian Flat 5",
+        "full_key_name": "C Dorian Flat 5",
+        "spoken_title_text": "C Dorian Flat 5, Mode 2 of Harmonic Major",
+        "title_video_file": "Title_23_C_Dorian_Flat_5.mp4",
+        "file_slug": "C_Dorian_Flat_5",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            6,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            65,
+            66,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fa",
+            "Se",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fa - Se - La - Te - Do'"
+    },
+    "C_Phrygian_Flat_4": {
+        "id": 24,
+        "parent_family": "Harmonic Major",
+        "mode_degree": 3,
+        "mode_name": "Phrygian Flat 4",
+        "full_key_name": "C Phrygian Flat 4",
+        "spoken_title_text": "C Phrygian Flat 4, Mode 3 of Harmonic Major",
+        "title_video_file": "Title_24_C_Phrygian_Flat_4.mp4",
+        "file_slug": "C_Phrygian_Flat_4",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            4,
+            7,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            64,
+            67,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fe",
+            "So",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fe - So - Le - Te - Do'"
+    },
+    "C_Lydian_Flat_3": {
+        "id": 25,
+        "parent_family": "Harmonic Major",
+        "mode_degree": 4,
+        "mode_name": "Lydian Flat 3",
+        "full_key_name": "C Lydian Flat 3",
+        "spoken_title_text": "C Lydian Flat 3, Mode 4 of Harmonic Major",
+        "title_video_file": "Title_25_C_Lydian_Flat_3.mp4",
+        "file_slug": "C_Lydian_Flat_3",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            6,
+            7,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            66,
+            67,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fi",
+            "So",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fi - So - La - Ti - Do'"
+    },
+    "C_Mixolydian_Flat_2": {
+        "id": 26,
+        "parent_family": "Harmonic Major",
+        "mode_degree": 5,
+        "mode_name": "Mixolydian Flat 2",
+        "full_key_name": "C Mixolydian Flat 2",
+        "spoken_title_text": "C Mixolydian Flat 2, Mode 5 of Harmonic Major",
+        "title_video_file": "Title_26_C_Mixolydian_Flat_2.mp4",
+        "file_slug": "C_Mixolydian_Flat_2",
+        "pitch_classes": [
+            0,
+            1,
+            4,
+            5,
+            7,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            64,
+            65,
+            67,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Mi",
+            "Fa",
+            "So",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Mi - Fa - So - La - Te - Do'"
+    },
+    "C_Lydian_Augmented_Sharp_2": {
+        "id": 27,
+        "parent_family": "Harmonic Major",
+        "mode_degree": 6,
+        "mode_name": "Lydian Augmented Sharp 2",
+        "full_key_name": "C Lydian Augmented Sharp 2",
+        "spoken_title_text": "C Lydian Augmented Sharp 2, Mode 6 of Harmonic Major",
+        "title_video_file": "Title_27_C_Lydian_Augmented_Sharp_2.mp4",
+        "file_slug": "C_Lydian_Augmented_Sharp_2",
+        "pitch_classes": [
+            0,
+            3,
+            4,
+            6,
+            8,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            63,
+            64,
+            66,
+            68,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ri",
+            "Mi",
+            "Fi",
+            "Si",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ri - Mi - Fi - Si - La - Ti - Do'"
+    },
+    "C_Locrian_Double_Flat_7": {
+        "id": 28,
+        "parent_family": "Harmonic Major",
+        "mode_degree": 7,
+        "mode_name": "Locrian Double Flat 7",
+        "full_key_name": "C Locrian Double Flat 7",
+        "spoken_title_text": "C Locrian Double Flat 7, Mode 7 of Harmonic Major",
+        "title_video_file": "Title_28_C_Locrian_Double_Flat_7.mp4",
+        "file_slug": "C_Locrian_Double_Flat_7",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            6,
+            8,
+            9
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            65,
+            66,
+            68,
+            69,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fa",
+            "Se",
+            "Le",
+            "Tas",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fa - Se - Le - Tas - Do'"
+    },
+    "C_Double_Harmonic_Major": {
+        "id": 29,
+        "parent_family": "Double Harmonic Major",
+        "mode_degree": 1,
+        "mode_name": "Double Harmonic Major",
+        "full_key_name": "C Double Harmonic Major",
+        "spoken_title_text": "C Double Harmonic Major, Mode 1 of Double Harmonic Major",
+        "title_video_file": "Title_29_C_Double_Harmonic_Major.mp4",
+        "file_slug": "C_Double_Harmonic_Major",
+        "pitch_classes": [
+            0,
+            1,
+            4,
+            5,
+            7,
+            8,
+            11
+        ],
+        "midi_notes": [
+            60,
+            61,
+            64,
+            65,
+            67,
+            68,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Mi",
+            "Fa",
+            "So",
+            "Le",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Mi - Fa - So - Le - Ti - Do'"
+    },
+    "C_Lydian_Sharp_2_Sharp_6": {
+        "id": 30,
+        "parent_family": "Double Harmonic Major",
+        "mode_degree": 2,
+        "mode_name": "Lydian Sharp 2 Sharp 6",
+        "full_key_name": "C Lydian Sharp 2 Sharp 6",
+        "spoken_title_text": "C Lydian Sharp 2 Sharp 6, Mode 2 of Double Harmonic Major",
+        "title_video_file": "Title_30_C_Lydian_Sharp_2_Sharp_6.mp4",
+        "file_slug": "C_Lydian_Sharp_2_Sharp_6",
+        "pitch_classes": [
+            0,
+            3,
+            4,
+            6,
+            7,
+            10,
+            11
+        ],
+        "midi_notes": [
+            60,
+            63,
+            64,
+            66,
+            67,
+            70,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ri",
+            "Mi",
+            "Fi",
+            "So",
+            "Deg6(1)",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ri - Mi - Fi - So - Deg6(1) - Ti - Do'"
+    },
+    "C_Ultra_Phrygian": {
+        "id": 31,
+        "parent_family": "Double Harmonic Major",
+        "mode_degree": 3,
+        "mode_name": "Ultra Phrygian",
+        "full_key_name": "C Ultra Phrygian",
+        "spoken_title_text": "C Ultra Phrygian, Mode 3 of Double Harmonic Major",
+        "title_video_file": "Title_31_C_Ultra_Phrygian.mp4",
+        "file_slug": "C_Ultra_Phrygian",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            4,
+            7,
+            8,
+            9
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            64,
+            67,
+            68,
+            69,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fe",
+            "So",
+            "Le",
+            "Tas",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fe - So - Le - Tas - Do'"
+    },
+    "C_Hungarian_Minor": {
+        "id": 32,
+        "parent_family": "Double Harmonic Major",
+        "mode_degree": 4,
+        "mode_name": "Hungarian Minor",
+        "full_key_name": "C Hungarian Minor",
+        "spoken_title_text": "C Hungarian Minor, Mode 4 of Double Harmonic Major",
+        "title_video_file": "Title_32_C_Hungarian_Minor.mp4",
+        "file_slug": "C_Hungarian_Minor",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            6,
+            7,
+            8,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            66,
+            67,
+            68,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fi",
+            "So",
+            "Le",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fi - So - Le - Ti - Do'"
+    },
+    "C_Harmonic_Minor_Flat_5": {
+        "id": 33,
+        "parent_family": "Double Harmonic Major",
+        "mode_degree": 5,
+        "mode_name": "Harmonic Minor Flat 5",
+        "full_key_name": "C Harmonic Minor Flat 5",
+        "spoken_title_text": "C Harmonic Minor Flat 5, Mode 5 of Double Harmonic Major",
+        "title_video_file": "Title_33_C_Harmonic_Minor_Flat_5.mp4",
+        "file_slug": "C_Harmonic_Minor_Flat_5",
+        "pitch_classes": [
+            0,
+            1,
+            4,
+            5,
+            6,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            64,
+            65,
+            66,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Mi",
+            "Fa",
+            "Se",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Mi - Fa - Se - La - Te - Do'"
+    },
+    "C_Ionian_Sharp_2_Sharp_5": {
+        "id": 34,
+        "parent_family": "Double Harmonic Major",
+        "mode_degree": 6,
+        "mode_name": "Ionian Sharp 2 Sharp 5",
+        "full_key_name": "C Ionian Sharp 2 Sharp 5",
+        "spoken_title_text": "C Ionian Sharp 2 Sharp 5, Mode 6 of Double Harmonic Major",
+        "title_video_file": "Title_34_C_Ionian_Sharp_2_Sharp_5.mp4",
+        "file_slug": "C_Ionian_Sharp_2_Sharp_5",
+        "pitch_classes": [
+            0,
+            3,
+            4,
+            5,
+            8,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            63,
+            64,
+            65,
+            68,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ri",
+            "Mi",
+            "Fa",
+            "Si",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ri - Mi - Fa - Si - La - Ti - Do'"
+    },
+    "C_Locrian_Double_Flat_3_Double_Flat_7": {
+        "id": 35,
+        "parent_family": "Double Harmonic Major",
+        "mode_degree": 7,
+        "mode_name": "Locrian Double Flat 3 Double Flat 7",
+        "full_key_name": "C Locrian Double Flat 3 Double Flat 7",
+        "spoken_title_text": "C Locrian Double Flat 3 Double Flat 7, Mode 7 of Double Harmonic Major",
+        "title_video_file": "Title_35_C_Locrian_Double_Flat_3_Double_Flat_7.mp4",
+        "file_slug": "C_Locrian_Double_Flat_3_Double_Flat_7",
+        "pitch_classes": [
+            0,
+            1,
+            2,
+            5,
+            6,
+            8,
+            9
+        ],
+        "midi_notes": [
+            60,
+            61,
+            62,
+            65,
+            66,
+            68,
+            69,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Rri",
+            "Fa",
+            "Se",
+            "Le",
+            "Tas",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Rri - Fa - Se - Le - Tas - Do'"
+    },
+    "C_Neapolitan_Major": {
+        "id": 36,
+        "parent_family": "Neapolitan Major",
+        "mode_degree": 1,
+        "mode_name": "Neapolitan Major",
+        "full_key_name": "C Neapolitan Major",
+        "spoken_title_text": "C Neapolitan Major, Mode 1 of Neapolitan Major",
+        "title_video_file": "Title_36_C_Neapolitan_Major.mp4",
+        "file_slug": "C_Neapolitan_Major",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            7,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            65,
+            67,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fa",
+            "So",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fa - So - La - Ti - Do'"
+    },
+    "C_Lydian_Sharp_6": {
+        "id": 37,
+        "parent_family": "Neapolitan Major",
+        "mode_degree": 2,
+        "mode_name": "Lydian Sharp 6",
+        "full_key_name": "C Lydian Sharp 6",
+        "spoken_title_text": "C Lydian Sharp 6, Mode 2 of Neapolitan Major",
+        "title_video_file": "Title_37_C_Lydian_Sharp_6.mp4",
+        "file_slug": "C_Lydian_Sharp_6",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            6,
+            8,
+            10,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            66,
+            68,
+            70,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fi",
+            "Si",
+            "Deg6(1)",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fi - Si - Deg6(1) - Ti - Do'"
+    },
+    "C_Major_Augmented_Sharp_5": {
+        "id": 38,
+        "parent_family": "Neapolitan Major",
+        "mode_degree": 3,
+        "mode_name": "Major Augmented Sharp 5",
+        "full_key_name": "C Major Augmented Sharp 5",
+        "spoken_title_text": "C Major Augmented Sharp 5, Mode 3 of Neapolitan Major",
+        "title_video_file": "Title_38_C_Major_Augmented_Sharp_5.mp4",
+        "file_slug": "C_Major_Augmented_Sharp_5",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            6,
+            8,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            66,
+            68,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fi",
+            "Si",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fi - Si - La - Te - Do'"
+    },
+    "C_Lydian_Dominant_Flat_6": {
+        "id": 39,
+        "parent_family": "Neapolitan Major",
+        "mode_degree": 4,
+        "mode_name": "Lydian Dominant Flat 6",
+        "full_key_name": "C Lydian Dominant Flat 6",
+        "spoken_title_text": "C Lydian Dominant Flat 6, Mode 4 of Neapolitan Major",
+        "title_video_file": "Title_39_C_Lydian_Dominant_Flat_6.mp4",
+        "file_slug": "C_Lydian_Dominant_Flat_6",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            6,
+            7,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            66,
+            67,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fi",
+            "So",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fi - So - Le - Te - Do'"
+    },
+    "C_Major_Locrian": {
+        "id": 40,
+        "parent_family": "Neapolitan Major",
+        "mode_degree": 5,
+        "mode_name": "Major Locrian",
+        "full_key_name": "C Major Locrian",
+        "spoken_title_text": "C Major Locrian, Mode 5 of Neapolitan Major",
+        "title_video_file": "Title_40_C_Major_Locrian.mp4",
+        "file_slug": "C_Major_Locrian",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            5,
+            6,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            65,
+            66,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fa",
+            "Se",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fa - Se - Le - Te - Do'"
+    },
+    "C_Half-Diminished_Flat_4": {
+        "id": 41,
+        "parent_family": "Neapolitan Major",
+        "mode_degree": 6,
+        "mode_name": "Half-Diminished Flat 4",
+        "full_key_name": "C Half-Diminished Flat 4",
+        "spoken_title_text": "C Half-Diminished Flat 4, Mode 6 of Neapolitan Major",
+        "title_video_file": "Title_41_C_Half-Diminished_Flat_4.mp4",
+        "file_slug": "C_Half-Diminished_Flat_4",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            4,
+            6,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            64,
+            66,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fe",
+            "Se",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fe - Se - Le - Te - Do'"
+    },
+    "C_Altered_Dominant_Double_Flat_3": {
+        "id": 42,
+        "parent_family": "Neapolitan Major",
+        "mode_degree": 7,
+        "mode_name": "Altered Dominant Double Flat 3",
+        "full_key_name": "C Altered Dominant Double Flat 3",
+        "spoken_title_text": "C Altered Dominant Double Flat 3, Mode 7 of Neapolitan Major",
+        "title_video_file": "Title_42_C_Altered_Dominant_Double_Flat_3.mp4",
+        "file_slug": "C_Altered_Dominant_Double_Flat_3",
+        "pitch_classes": [
+            0,
+            1,
+            2,
+            4,
+            6,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            62,
+            64,
+            66,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Rri",
+            "Fe",
+            "Se",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Rri - Fe - Se - Le - Te - Do'"
+    },
+    "C_Neapolitan_Minor": {
+        "id": 43,
+        "parent_family": "Neapolitan Minor",
+        "mode_degree": 1,
+        "mode_name": "Neapolitan Minor",
+        "full_key_name": "C Neapolitan Minor",
+        "spoken_title_text": "C Neapolitan Minor, Mode 1 of Neapolitan Minor",
+        "title_video_file": "Title_43_C_Neapolitan_Minor.mp4",
+        "file_slug": "C_Neapolitan_Minor",
+        "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            7,
+            8,
+            11
+        ],
+        "midi_notes": [
+            60,
+            61,
+            63,
+            65,
+            67,
+            68,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Me",
+            "Fa",
+            "So",
+            "Le",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Me - Fa - So - Le - Ti - Do'"
+    },
+    "C_Lydian_Sharp_6_Sharp_3": {
+        "id": 44,
+        "parent_family": "Neapolitan Minor",
+        "mode_degree": 2,
+        "mode_name": "Lydian Sharp 6 Sharp 3",
+        "full_key_name": "C Lydian Sharp 6 Sharp 3",
+        "spoken_title_text": "C Lydian Sharp 6 Sharp 3, Mode 2 of Neapolitan Minor",
+        "title_video_file": "Title_44_C_Lydian_Sharp_6_Sharp_3.mp4",
+        "file_slug": "C_Lydian_Sharp_6_Sharp_3",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            6,
+            7,
+            10,
+            11
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            66,
+            67,
+            70,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fi",
+            "So",
+            "Deg6(1)",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fi - So - Deg6(1) - Ti - Do'"
+    },
+    "C_Major_Sharp_5": {
+        "id": 45,
+        "parent_family": "Neapolitan Minor",
+        "mode_degree": 3,
+        "mode_name": "Major Sharp 5",
+        "full_key_name": "C Major Sharp 5",
+        "spoken_title_text": "C Major Sharp 5, Mode 3 of Neapolitan Minor",
+        "title_video_file": "Title_45_C_Major_Sharp_5.mp4",
+        "file_slug": "C_Major_Sharp_5",
+        "pitch_classes": [
+            0,
+            2,
+            4,
+            5,
+            8,
+            9,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            64,
+            65,
+            68,
+            69,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Mi",
+            "Fa",
+            "Si",
+            "La",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Mi - Fa - Si - La - Te - Do'"
+    },
+    "C_Hungarian_Gypsy": {
+        "id": 46,
+        "parent_family": "Neapolitan Minor",
+        "mode_degree": 4,
+        "mode_name": "Hungarian Gypsy",
+        "full_key_name": "C Hungarian Gypsy",
+        "spoken_title_text": "C Hungarian Gypsy, Mode 4 of Neapolitan Minor",
+        "title_video_file": "Title_46_C_Hungarian_Gypsy.mp4",
+        "file_slug": "C_Hungarian_Gypsy",
+        "pitch_classes": [
+            0,
+            2,
+            3,
+            6,
+            7,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            62,
+            63,
+            66,
+            67,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Re",
+            "Me",
+            "Fi",
+            "So",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Re - Me - Fi - So - Le - Te - Do'"
+    },
+    "C_Locrian_Major": {
+        "id": 47,
+        "parent_family": "Neapolitan Minor",
+        "mode_degree": 5,
+        "mode_name": "Locrian Major",
+        "full_key_name": "C Locrian Major",
+        "spoken_title_text": "C Locrian Major, Mode 5 of Neapolitan Minor",
+        "title_video_file": "Title_47_C_Locrian_Major.mp4",
+        "file_slug": "C_Locrian_Major",
+        "pitch_classes": [
+            0,
+            1,
+            4,
+            5,
+            6,
+            8,
+            10
+        ],
+        "midi_notes": [
+            60,
+            61,
+            64,
+            65,
+            66,
+            68,
+            70,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Mi",
+            "Fa",
+            "Se",
+            "Le",
+            "Te",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Mi - Fa - Se - Le - Te - Do'"
+    },
+    "C_Ionian_Sharp_2": {
+        "id": 48,
+        "parent_family": "Neapolitan Minor",
+        "mode_degree": 6,
+        "mode_name": "Ionian Sharp 2",
+        "full_key_name": "C Ionian Sharp 2",
+        "spoken_title_text": "C Ionian Sharp 2, Mode 6 of Neapolitan Minor",
+        "title_video_file": "Title_48_C_Ionian_Sharp_2.mp4",
+        "file_slug": "C_Ionian_Sharp_2",
+        "pitch_classes": [
+            0,
+            3,
+            4,
+            5,
+            7,
+            9,
+            11
+        ],
+        "midi_notes": [
+            60,
+            63,
+            64,
+            65,
+            67,
+            69,
+            71,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ri",
+            "Mi",
+            "Fa",
+            "So",
+            "La",
+            "Ti",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ri - Mi - Fa - So - La - Ti - Do'"
+    },
+    "C_Ultra_Locrian": {
+        "id": 49,
+        "parent_family": "Neapolitan Minor",
+        "mode_degree": 7,
+        "mode_name": "Ultra Locrian",
+        "full_key_name": "C Ultra Locrian",
+        "spoken_title_text": "C Ultra Locrian, Mode 7 of Neapolitan Minor",
+        "title_video_file": "Title_49_C_Ultra_Locrian.mp4",
+        "file_slug": "C_Ultra_Locrian",
+        "pitch_classes": [
+            0,
+            1,
+            2,
+            4,
+            6,
+            8,
+            9
+        ],
+        "midi_notes": [
+            60,
+            61,
+            62,
+            64,
+            66,
+            68,
+            69,
+            72
+        ],
+        "solfege_spelling": [
+            "Do",
+            "Ra",
+            "Rri",
+            "Fe",
+            "Se",
+            "Le",
+            "Tas",
+            "Do'"
+        ],
+        "solfege_string": "Do - Ra - Rri - Fe - Se - Le - Tas - Do'"
+    }
+}
