@@ -146,7 +146,6 @@ def process_clip_to_grid(note_file: str, offset_sec: float) -> str:
     return output_slice
 
 def wav_to_blank_video(wav_filename: str, tag: str = "intro") -> str:
-    """Converts a spoken title WAV into a black 1080p video card with robust PTS sync."""
     wav_path = os.path.join(RAW_DIR, wav_filename)
     base_name = os.path.splitext(wav_filename)[0]
     output_mp4 = os.path.join(TEMP_DIR, f"{base_name}_{tag}_card.mp4")
@@ -177,10 +176,6 @@ def wav_to_blank_video(wav_filename: str, tag: str = "intro") -> str:
 # 3. EXERCISE PATTERN GENERATOR & STITCHER
 # ==========================================
 def concatenate_video_list_filter(clip_paths: list[str], output_filename: str):
-    """
-    Stitches clips together using FFmpeg's filtergraph concat engine.
-    This performs frame-accurate splicing and prevents transition audio stutter.
-    """
     inputs = []
     filter_inputs = ""
     
@@ -203,26 +198,52 @@ def concatenate_video_list_filter(clip_paths: list[str], output_filename: str):
     subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
 
 def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, str]) -> dict[str, list[str]]:
-    scale_files = [f"{PITCH_MAP[pc]}.mp4" for pc in pitch_classes]
-    scale_files.append(f"{PITCH_MAP[12]}.mp4")  # Top octave C5
-
+    """
+    Generates full modal exercise sequences extended across two octaves 
+    (or wrapped modulo 13) for seamless degree-based progressions.
+    """
+    # Create extended scale pool covering full diatonic scale degrees 1 through 13
+    extended_pcs = pitch_classes + [pc + 12 for pc in pitch_classes[:6]]
+    
     scale_slices = []
-    for f in scale_files:
-        if f in slice_map:
-            scale_slices.append(slice_map[f])
+    for pc in extended_pcs:
+        octave_adjust = pc % 13
+        filename = f"{PITCH_MAP[octave_adjust]}.mp4"
+        if filename in slice_map:
+            scale_slices.append(slice_map[filename])
         else:
             return {}
 
+    base_len = len(pitch_classes)
     patterns = {}
-    patterns["Full_Scale"] = scale_slices + list(reversed(scale_slices[:-1]))
-    
+
+    # 1. Full Scale (Ascending & Descending)
+    patterns["Full_Scale"] = scale_slices[:base_len+1] + list(reversed(scale_slices[:base_len]))
+
+    # 2. Three-Note Scalar Steps (do-re-mi, re-mi-fa, ...)
     three_notes = []
-    for i in range(len(scale_slices) - 2):
+    for i in range(base_len):
         three_notes.extend([scale_slices[i], scale_slices[i+1], scale_slices[i+2]])
     patterns["Three_Notes"] = three_notes
-    
-    if len(scale_slices) >= 8:
-        patterns["Diatonic_7th_Arpeggios"] = [scale_slices[0], scale_slices[2], scale_slices[4], scale_slices[6], scale_slices[7]]
+
+    # 3. Leap-Wise Motion / 3rds (do-mi, re-fa, mi-so, ...)
+    leap_3rds = []
+    for i in range(base_len):
+        leap_3rds.extend([scale_slices[i], scale_slices[i+2]])
+    patterns["Leap_Wise_3rds"] = leap_3rds
+
+    # 4. Full Diatonic 7th Chord Progression (Degree I through VII 7th Chords)
+    diatonic_7ths = []
+    for root_idx in range(base_len):
+        # Build 1-3-5-7 arpeggio from each scale root degree
+        chord = [
+            scale_slices[root_idx],
+            scale_slices[root_idx + 2],
+            scale_slices[root_idx + 4],
+            scale_slices[root_idx + 6]
+        ]
+        diatonic_7ths.extend(chord)
+    patterns["Diatonic_7th_Progression"] = diatonic_7ths
 
     return patterns
 
@@ -231,7 +252,7 @@ def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, s
 # ==========================================
 def main():
     print("==========================================================================")
-    print(" UNIFIED MODAL CHOIR PIPELINE (STUTTER-FREE SPLICING)")
+    print(" UNIFIED MODAL CHOIR PIPELINE (COMPLETE EXERCISE SET)")
     print("==========================================================================\n")
 
     if not os.path.exists(MANIFEST_FILE):
@@ -253,7 +274,7 @@ def main():
             
     print(f"  -> {len(slice_map)} pitch takes slice-ready.\n")
 
-    print("[2/3] Processing Modes, Building Exercises, and Stitching Videos...")
+    print("[2/3] Processing Modes, Building Complete Exercise Set, and Stitching...")
     total_rendered = 0
 
     for slug, mode_info in manifest.items():
@@ -265,7 +286,6 @@ def main():
             print(f"[-] Skipping Mode {mode_id:02d} ({mode_info['full_key_name']}): Spoken WAV missing.")
             continue
 
-        # Render explicit Intro and Outro instances to avoid timestamp collisions
         intro_card = wav_to_blank_video(spoken_wav_name, tag="intro")
         outro_card = wav_to_blank_video(spoken_wav_name, tag="outro")
         
@@ -283,7 +303,7 @@ def main():
             total_rendered += 1
 
     print("\n==========================================================================")
-    print(f"[COMPLETE] Rendered {total_rendered} seamless videos to '{OUTPUT_DIR}/'.")
+    print(f"[COMPLETE] Rendered {total_rendered} full exercise videos to '{OUTPUT_DIR}/'.")
     print("==========================================================================")
 
 if __name__ == "__main__":
