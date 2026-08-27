@@ -12,7 +12,8 @@ import wave
 # ==========================================
 RAW_DIR = "raw_vocal_takes"                          # Directory for .mp4 note takes & Title_XX_.wav takes
 TEMP_DIR = "processed_slices"                        # Intermediate cut slices and title cards
-OUTPUT_DIR = "../storage/downloads/exercise_videos"  # Final stitched videos
+#OUTPUT_DIR = "../storage/downloads/exercise_videos"  # Final stitched videos
+OUTPUT_DIR = "../storage/movies/Learn the Alphabet/Music"  # Final stitched videos
 CONFIG_FILE = "onset_offsets.json"
 MANIFEST_FILE = "modes_manifest.json"
 
