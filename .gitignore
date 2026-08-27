@@ -3,4 +3,6 @@ chromatic_reference_pitches/
 raw_vocal_takes/
 processed_slices/
 exercise_videos/
+modes_manifest.json
+onset_offsets.json
 

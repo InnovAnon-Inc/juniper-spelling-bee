@@ -23,11 +23,9 @@ WIDTH = 1920
 HEIGHT = 1080
 SAMPLE_RATE = 44100
 
-# RMS Attack Detection Parameters
 WINDOW_MS = 20
 THRESHOLD_RATIO = 4.0
 
-# Pitch class mapping to standard note names (MIDI 60 = C4)
 PITCH_MAP = {
     0: "C4",  1: "Db4", 2: "D4",  3: "Eb4", 
     4: "E4",  5: "F4",  6: "F#4", 7: "G4", 
@@ -37,6 +35,20 @@ PITCH_MAP = {
 for d in [TEMP_DIR, OUTPUT_DIR]:
     if not os.path.exists(d):
         os.makedirs(d)
+
+# ==========================================
+# HELPER: ACCURATE AUDIO DURATION PROBER
+# ==========================================
+def get_media_duration(file_path: str) -> float:
+    """Gets exact duration of an audio/video file using ffprobe."""
+    cmd = [
+        "ffprobe", "-v", "error",
+        "-show_entries", "format=duration",
+        "-of", "default=noprint_wrappers=1:nokey=1",
+        file_path
+    ]
+    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+    return float(result.stdout.strip())
 
 # ==========================================
 # 1. RMS ATTACK ONSET DETECTOR & CONFIG
@@ -111,12 +123,9 @@ def load_or_create_config() -> dict[str, float]:
 # 2. SLICE & TITLE CARD RENDERING
 # ==========================================
 def process_clip_to_grid(note_file: str, offset_sec: float) -> str:
-    """Trims note take at onset, shapes audio envelope (50ms in / 150ms out), standardizes to 1.0s."""
+    """Trims note take at onset, shapes audio envelope, standardizes to 1.0s."""
     input_path = os.path.join(RAW_DIR, note_file)
     output_slice = os.path.join(TEMP_DIR, f"slice_{note_file}")
-
-    if os.path.exists(output_slice):
-        return output_slice  # Cache check
 
     filter_complex = (
         f"[0:v]scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=decrease,pad={WIDTH}:{HEIGHT}:(ow-iw)/2:(oh-ih)/2,"
@@ -132,14 +141,14 @@ def process_clip_to_grid(note_file: str, offset_sec: float) -> str:
         "-filter_complex", filter_complex,
         "-map", "[v]", "-map", "[a]",
         "-c:v", "libx264", "-crf", "18", "-preset", "fast",
-        "-c:a", "aac", "-b:a", "192k",
+        "-c:a", "aac", "-b:a", "192k", "-ar", str(SAMPLE_RATE),
         output_slice
     ]
     subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
     return output_slice
 
 def wav_to_blank_video(wav_filename: str) -> str:
-    """Converts a spoken title WAV into a black 1080p video card."""
+    """Converts a spoken title WAV into a black 1080p video card matching full duration."""
     wav_path = os.path.join(RAW_DIR, wav_filename)
     base_name = os.path.splitext(wav_filename)[0]
     output_mp4 = os.path.join(TEMP_DIR, f"{base_name}_card.mp4")
@@ -147,12 +156,12 @@ def wav_to_blank_video(wav_filename: str) -> str:
     if not os.path.exists(wav_path):
         return ""
 
-    if os.path.exists(output_mp4):
-        return output_mp4  # Cache check
+    # Measure real WAV duration so the black canvas doesn't truncate prematurely
+    duration = get_media_duration(wav_path)
 
     filter_complex = (
-        f"color=c=black:s={WIDTH}x{HEIGHT}:r={FPS}[v];"
-        f"[0:a]afade=t=in:ss=0:d=0.05,afade=t=out:st=0.85:d=0.15,aresample={SAMPLE_RATE}[a]"
+        f"color=c=black:s={WIDTH}x{HEIGHT}:r={FPS}:d={duration}[v];"
+        f"[0:a]afade=t=in:ss=0:d=0.05,afade=t=out:st={max(0, duration - 0.15):.2f}:d=0.15,aresample={SAMPLE_RATE}[a]"
     )
 
     cmd = [
@@ -161,8 +170,7 @@ def wav_to_blank_video(wav_filename: str) -> str:
         "-filter_complex", filter_complex,
         "-map", "[v]", "-map", "[a]",
         "-c:v", "libx264", "-crf", "18", "-preset", "fast",
-        "-c:a", "aac", "-b:a", "192k",
-        "-shortest",
+        "-c:a", "aac", "-b:a", "192k", "-ar", str(SAMPLE_RATE),
         output_mp4
     ]
     subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
@@ -172,17 +180,21 @@ def wav_to_blank_video(wav_filename: str) -> str:
 # 3. EXERCISE PATTERN GENERATOR & STITCHER
 # ==========================================
 def concatenate_video_list(clip_paths: list[str], output_filename: str):
+    """Concatenates title and exercise slices with full audio/video re-encoding."""
     list_file_path = os.path.join(TEMP_DIR, f"concat_{output_filename}.txt")
     with open(list_file_path, "w") as f:
         for clip in clip_paths:
             f.write(f"file '{os.path.abspath(clip)}'\n")
 
     output_path = os.path.join(OUTPUT_DIR, output_filename)
+    
+    # Re-encoding during concat ensures smooth audio/video binding without dropped streams
     cmd = [
         "ffmpeg", "-y",
         "-f", "concat", "-safe", "0",
         "-i", list_file_path,
-        "-c", "copy",
+        "-c:v", "libx264", "-crf", "18", "-preset", "fast",
+        "-c:a", "aac", "-b:a", "192k", "-ar", str(SAMPLE_RATE),
         output_path
     ]
     subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
@@ -190,8 +202,6 @@ def concatenate_video_list(clip_paths: list[str], output_filename: str):
         os.remove(list_file_path)
 
 def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, str]) -> dict[str, list[str]]:
-    """Maps mode pitch classes to physical note slice files and builds sequence lists."""
-    # Convert pitch classes to scale note filenames (e.g., [0, 2, 4...] -> ['C4.mp4', 'D4.mp4'...])
     scale_files = [f"{PITCH_MAP[pc]}.mp4" for pc in pitch_classes]
     scale_files.append(f"{PITCH_MAP[12]}.mp4")  # Top octave C5
 
@@ -200,20 +210,16 @@ def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, s
         if f in slice_map:
             scale_slices.append(slice_map[f])
         else:
-            return {} # Incomplete set for this scale
+            return {}
 
     patterns = {}
-    
-    # Pattern 1: Ascending + Descending Full Scale
     patterns["Full_Scale"] = scale_slices + list(reversed(scale_slices[:-1]))
     
-    # Pattern 2: 3-Note Step Sequence (1-2-3, 2-3-4...)
     three_notes = []
     for i in range(len(scale_slices) - 2):
         three_notes.extend([scale_slices[i], scale_slices[i+1], scale_slices[i+2]])
     patterns["Three_Notes"] = three_notes
     
-    # Pattern 3: Diatonic 7th Arpeggios (1-3-5-7)
     if len(scale_slices) >= 8:
         patterns["Diatonic_7th_Arpeggios"] = [scale_slices[0], scale_slices[2], scale_slices[4], scale_slices[6], scale_slices[7]]
 
@@ -224,7 +230,7 @@ def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, s
 # ==========================================
 def main():
     print("==========================================================================")
-    print(" UNIFIED MODAL CHOIR PIPELINE (ALIGN -> SLICE -> STITCH -> RENDER)")
+    print(" UNIFIED MODAL CHOIR PIPELINE (ACCURATE TIMING & AUDIO FIX)")
     print("==========================================================================\n")
 
     if not os.path.exists(MANIFEST_FILE):
@@ -234,10 +240,8 @@ def main():
     with open(MANIFEST_FILE, "r") as f:
         manifest = json.load(f)
 
-    # 1. Analyze and cache attack offsets
     offsets_dict = load_or_create_config()
 
-    # 2. Slice all raw .mp4 pitch takes into standardized 1.0s grid items
     print("[1/3] Pre-processing raw pitch takes into 60 BPM envelope slices...")
     slice_map = {}
     for note_file, offset in offsets_dict.items():
@@ -248,7 +252,6 @@ def main():
             
     print(f"  -> {len(slice_map)} pitch takes slice-ready.\n")
 
-    # 3. Process each mode: convert title WAV, build exercises, prefix/suffix stitch
     print("[2/3] Processing Modes, Building Exercises, and Stitching Videos...")
     total_rendered = 0
 
@@ -258,22 +261,19 @@ def main():
         spoken_wav_path = os.path.join(RAW_DIR, spoken_wav_name)
 
         if not os.path.exists(spoken_wav_path):
-            print(f"[-] Skipping Mode {mode_id:02d} ({mode_info['full_key_name']}): Spoken WAV '{spoken_wav_name}' not found.")
+            print(f"[-] Skipping Mode {mode_id:02d} ({mode_info['full_key_name']}): Spoken WAV missing.")
             continue
 
-        # Render/Get title card
         title_card = wav_to_blank_video(spoken_wav_name)
         if not title_card:
             continue
 
-        # Build exercise sequences from pitch slices
         exercise_patterns = generate_exercise_sequences(mode_info['pitch_classes'], slice_map)
 
         for ex_name, pattern_slices in exercise_patterns.items():
             final_filename = f"{mode_id:02d}_{slug}_{ex_name}_FULL.mp4"
             print(f"  [+] Rendering: {final_filename}")
 
-            # Assemble: [Title Card Intro] -> [Exercise Pattern] -> [Title Card Outro]
             full_sequence = [title_card] + pattern_slices + [title_card]
             concatenate_video_list(full_sequence, final_filename)
             total_rendered += 1
