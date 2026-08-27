@@ -242,9 +242,9 @@ def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, s
             scale_slices[root_idx],
             scale_slices[root_idx + 2],
             scale_slices[root_idx + 4],
-            scale_slices[root_idx + 6]
+            scale_slices[root_idx + 6],
             scale_slices[root_idx + 7],
-            scale_slices[root_idx + 6]
+            scale_slices[root_idx + 6],
             scale_slices[root_idx + 4],
             scale_slices[root_idx + 2],
             scale_slices[root_idx],
