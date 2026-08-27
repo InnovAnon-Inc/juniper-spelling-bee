@@ -40,7 +40,6 @@ for d in [TEMP_DIR, OUTPUT_DIR]:
 # HELPER: ACCURATE AUDIO DURATION PROBER
 # ==========================================
 def get_media_duration(file_path: str) -> float:
-    """Gets exact duration of an audio/video file using ffprobe."""
     cmd = [
         "ffprobe", "-v", "error",
         "-show_entries", "format=duration",
@@ -123,7 +122,6 @@ def load_or_create_config() -> dict[str, float]:
 # 2. SLICE & TITLE CARD RENDERING
 # ==========================================
 def process_clip_to_grid(note_file: str, offset_sec: float) -> str:
-    """Trims note take at onset, shapes audio envelope, standardizes to 1.0s."""
     input_path = os.path.join(RAW_DIR, note_file)
     output_slice = os.path.join(TEMP_DIR, f"slice_{note_file}")
 
@@ -131,7 +129,7 @@ def process_clip_to_grid(note_file: str, offset_sec: float) -> str:
         f"[0:v]scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=decrease,pad={WIDTH}:{HEIGHT}:(ow-iw)/2:(oh-ih)/2,"
         f"fps={FPS},tpad=stop_duration=1.0:stop_mode=clone,trim=duration={TARGET_DUR},setpts=PTS-STARTPTS[v];"
         f"[0:a]apad=pad_dur=1.0,atrim=duration={TARGET_DUR},"
-        f"afade=t=in:ss=0:d=0.05,afade=t=out:st=0.85:d=0.15,aresample={SAMPLE_RATE}[a]"
+        f"afade=t=in:ss=0:d=0.05,afade=t=out:st=0.85:d=0.15,aresample={SAMPLE_RATE}:async=1[a]"
     )
 
     cmd = [
@@ -147,21 +145,20 @@ def process_clip_to_grid(note_file: str, offset_sec: float) -> str:
     subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
     return output_slice
 
-def wav_to_blank_video(wav_filename: str) -> str:
-    """Converts a spoken title WAV into a black 1080p video card matching full duration."""
+def wav_to_blank_video(wav_filename: str, tag: str = "intro") -> str:
+    """Converts a spoken title WAV into a black 1080p video card with robust PTS sync."""
     wav_path = os.path.join(RAW_DIR, wav_filename)
     base_name = os.path.splitext(wav_filename)[0]
-    output_mp4 = os.path.join(TEMP_DIR, f"{base_name}_card.mp4")
+    output_mp4 = os.path.join(TEMP_DIR, f"{base_name}_{tag}_card.mp4")
 
     if not os.path.exists(wav_path):
         return ""
 
-    # Measure real WAV duration so the black canvas doesn't truncate prematurely
     duration = get_media_duration(wav_path)
 
     filter_complex = (
         f"color=c=black:s={WIDTH}x{HEIGHT}:r={FPS}:d={duration}[v];"
-        f"[0:a]afade=t=in:ss=0:d=0.05,afade=t=out:st={max(0, duration - 0.15):.2f}:d=0.15,aresample={SAMPLE_RATE}[a]"
+        f"[0:a]afade=t=in:ss=0:d=0.05,afade=t=out:st={max(0, duration - 0.15):.2f}:d=0.15,aresample={SAMPLE_RATE}:async=1[a]"
     )
 
     cmd = [
@@ -179,27 +176,31 @@ def wav_to_blank_video(wav_filename: str) -> str:
 # ==========================================
 # 3. EXERCISE PATTERN GENERATOR & STITCHER
 # ==========================================
-def concatenate_video_list(clip_paths: list[str], output_filename: str):
-    """Concatenates title and exercise slices with full audio/video re-encoding."""
-    list_file_path = os.path.join(TEMP_DIR, f"concat_{output_filename}.txt")
-    with open(list_file_path, "w") as f:
-        for clip in clip_paths:
-            f.write(f"file '{os.path.abspath(clip)}'\n")
-
-    output_path = os.path.join(OUTPUT_DIR, output_filename)
+def concatenate_video_list_filter(clip_paths: list[str], output_filename: str):
+    """
+    Stitches clips together using FFmpeg's filtergraph concat engine.
+    This performs frame-accurate splicing and prevents transition audio stutter.
+    """
+    inputs = []
+    filter_inputs = ""
     
-    # Re-encoding during concat ensures smooth audio/video binding without dropped streams
+    for i, clip in enumerate(clip_paths):
+        inputs.extend(["-i", clip])
+        filter_inputs += f"[{i}:v][{i}:a]"
+
+    filter_complex = f"{filter_inputs}concat=n={len(clip_paths)}:v=1:a=1[v][a]"
+    output_path = os.path.join(OUTPUT_DIR, output_filename)
+
     cmd = [
         "ffmpeg", "-y",
-        "-f", "concat", "-safe", "0",
-        "-i", list_file_path,
+        *inputs,
+        "-filter_complex", filter_complex,
+        "-map", "[v]", "-map", "[a]",
         "-c:v", "libx264", "-crf", "18", "-preset", "fast",
         "-c:a", "aac", "-b:a", "192k", "-ar", str(SAMPLE_RATE),
         output_path
     ]
     subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
-    if os.path.exists(list_file_path):
-        os.remove(list_file_path)
 
 def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, str]) -> dict[str, list[str]]:
     scale_files = [f"{PITCH_MAP[pc]}.mp4" for pc in pitch_classes]
@@ -230,7 +231,7 @@ def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, s
 # ==========================================
 def main():
     print("==========================================================================")
-    print(" UNIFIED MODAL CHOIR PIPELINE (ACCURATE TIMING & AUDIO FIX)")
+    print(" UNIFIED MODAL CHOIR PIPELINE (STUTTER-FREE SPLICING)")
     print("==========================================================================\n")
 
     if not os.path.exists(MANIFEST_FILE):
@@ -264,8 +265,11 @@ def main():
             print(f"[-] Skipping Mode {mode_id:02d} ({mode_info['full_key_name']}): Spoken WAV missing.")
             continue
 
-        title_card = wav_to_blank_video(spoken_wav_name)
-        if not title_card:
+        # Render explicit Intro and Outro instances to avoid timestamp collisions
+        intro_card = wav_to_blank_video(spoken_wav_name, tag="intro")
+        outro_card = wav_to_blank_video(spoken_wav_name, tag="outro")
+        
+        if not intro_card or not outro_card:
             continue
 
         exercise_patterns = generate_exercise_sequences(mode_info['pitch_classes'], slice_map)
@@ -274,12 +278,12 @@ def main():
             final_filename = f"{mode_id:02d}_{slug}_{ex_name}_FULL.mp4"
             print(f"  [+] Rendering: {final_filename}")
 
-            full_sequence = [title_card] + pattern_slices + [title_card]
-            concatenate_video_list(full_sequence, final_filename)
+            full_sequence = [intro_card] + pattern_slices + [outro_card]
+            concatenate_video_list_filter(full_sequence, final_filename)
             total_rendered += 1
 
     print("\n==========================================================================")
-    print(f"[COMPLETE] Rendered {total_rendered} full exercise videos to '{OUTPUT_DIR}/'.")
+    print(f"[COMPLETE] Rendered {total_rendered} seamless videos to '{OUTPUT_DIR}/'.")
     print("==========================================================================")
 
 if __name__ == "__main__":
