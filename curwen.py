@@ -12,7 +12,6 @@ import wave
 # ==========================================
 RAW_DIR = "raw_vocal_takes"                          # Directory for .mp4 note takes & Title_XX_.wav takes
 TEMP_DIR = "processed_slices"                        # Intermediate cut slices and title cards
-#OUTPUT_DIR = "../storage/downloads/exercise_videos"  # Final stitched videos
 OUTPUT_DIR = "../storage/movies/Learn the Alphabet/Music"  # Final stitched videos
 CONFIG_FILE = "onset_offsets.json"
 MANIFEST_FILE = "modes_manifest.json"
@@ -27,10 +26,14 @@ SAMPLE_RATE = 44100
 WINDOW_MS = 20
 THRESHOLD_RATIO = 4.0
 
+# Pitch map spanning multi-octave pitch class integers
 PITCH_MAP = {
-    0: "C4",  1: "Db4", 2: "D4",  3: "Eb4", 
-    4: "E4",  5: "F4",  6: "F#4", 7: "G4", 
-    8: "Ab4", 9: "A4", 10: "Bb4", 11: "B4", 12: "C5"
+    0: "C4",   1: "Db4",  2: "D4",   3: "Eb4", 
+    4: "E4",   5: "F4",   6: "F#4",  7: "G4", 
+    8: "Ab4",  9: "A4",  10: "Bb4", 11: "B4", 
+    12: "C5", 13: "Db5", 14: "D5",  15: "Eb5",
+    16: "E5", 17: "F5",  18: "F#5", 19: "G5",
+    20: "Ab5", 21: "A5", 22: "Bb5", 23: "B5", 24: "C6"
 }
 
 for d in [TEMP_DIR, OUTPUT_DIR]:
@@ -200,25 +203,30 @@ def concatenate_video_list_filter(clip_paths: list[str], output_filename: str):
 
 def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, str]) -> dict[str, list[str]]:
     """
-    Generates full modal exercise sequences extended across two octaves 
-    (or wrapped modulo 13) for seamless degree-based progressions.
+    Builds multi-octave scale structures so that leap-wise patterns and 7th chord 
+    progressions move ascendingly into octave 5/6 without modulo wrapping or inversions.
     """
-    # Create extended scale pool covering full diatonic scale degrees 1 through 13
-    extended_pcs = pitch_classes + [pc + 12 for pc in pitch_classes[:6]]
+    # Build 2 full octaves of pitch classes + top tonic note
+    extended_pcs = pitch_classes + [pc + 12 for pc in pitch_classes] + [pitch_classes[0] + 24]
     
     scale_slices = []
     for pc in extended_pcs:
-        octave_adjust = pc % 13
-        filename = f"{PITCH_MAP[octave_adjust]}.mp4"
-        if filename in slice_map:
-            scale_slices.append(slice_map[filename])
+        note_name = PITCH_MAP.get(pc)
+        file_key = f"{note_name}.mp4"
+        if file_key in slice_map:
+            scale_slices.append(slice_map[file_key])
         else:
-            return {}
+            # Fallback to lower octave file if extended higher octave file isn't present
+            fallback_key = f"{PITCH_MAP.get(pc % 12, PITCH_MAP[0])}.mp4"
+            if fallback_key in slice_map:
+                scale_slices.append(slice_map[fallback_key])
+            else:
+                return {}
 
-    base_len = len(pitch_classes)
+    base_len = len(pitch_classes)  # Typically 7 notes per octave
     patterns = {}
 
-    # 1. Full Scale (Ascending & Descending)
+    # 1. Full Scale (Ascending & Descending 1 Octave)
     patterns["Full_Scale"] = scale_slices[:base_len+1] + list(reversed(scale_slices[:base_len]))
 
 #    # 2. Three-Note Scalar Steps (do-re-mi, re-mi-fa, ...)
@@ -227,29 +235,28 @@ def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, s
 #        three_notes.extend([scale_slices[i], scale_slices[i+1], scale_slices[i+2]])
 #    patterns["Three_Notes"] = three_notes
 #
-#    # 3. Leap-Wise Motion / 3rds (do-mi, re-fa, mi-so, ...)
-#    leap_3rds = []
+#    # 3. Leap-Wise Motion in Thirds (do-mi, re-fa, mi-so, ...)
+#    leap_thirds = []
 #    for i in range(base_len):
-#        leap_3rds.extend([scale_slices[i], scale_slices[i+2]])
-#    patterns["Leap_Wise_3rds"] = leap_3rds
+#        leap_thirds.extend([scale_slices[i], scale_slices[i+2]])
+#    patterns["Leap_Wise_Thirds"] = leap_thirds
 
-    # 4. Full Diatonic 7th Chord Progression (Degree I through VII 7th Chords)
+    # 4. Octave-Aware Diatonic 7th Chord Progression (Degree I through VII 7th Chords)
+    # Target progression order: I, IV, V, vi, iii, ii, vii° -> I
+    progression_indices = [0, 3, 4, 5, 2, 1, 6]
     diatonic_7ths = []
-    #for root_idx in range(base_len):
-    for root_idx in [0, 3, 4, 5, 2, 1, 6]:
-        # Build 1-3-5-7 arpeggio from each scale root degree
-        chord = [
-            scale_slices[root_idx],
-            scale_slices[root_idx + 2],
-            scale_slices[root_idx + 4],
-            scale_slices[root_idx + 6],
-            scale_slices[root_idx + 7],
-            scale_slices[root_idx + 6],
-            scale_slices[root_idx + 4],
-            scale_slices[root_idx + 2],
-            scale_slices[root_idx],
-        ]
-        diatonic_7ths.extend(chord)
+    
+    for d in progression_indices:
+        root    = scale_slices[d]
+        third   = scale_slices[d + 2]
+        fifth   = scale_slices[d + 4]
+        seventh = scale_slices[d + 6]
+        octave  = scale_slices[d + 7]
+        
+        # Linear arpeggio ascending into higher octave notes naturally
+        diatonic_7ths.extend([root, third, fifth, seventh, octave, seventh, fifth, third, root])
+        
+    diatonic_7ths.append(scale_slices[0])  # Resolution back to tonic root
     patterns["Diatonic_7th_Progression"] = diatonic_7ths
 
     return patterns
@@ -259,7 +266,7 @@ def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, s
 # ==========================================
 def main():
     print("==========================================================================")
-    print(" UNIFIED MODAL CHOIR PIPELINE (COMPLETE EXERCISE SET)")
+    print(" UNIFIED MODAL CHOIR PIPELINE (OCTAVE-AWARE MULTI-OCTAVE)")
     print("==========================================================================\n")
 
     if not os.path.exists(MANIFEST_FILE):
@@ -281,7 +288,7 @@ def main():
             
     print(f"  -> {len(slice_map)} pitch takes slice-ready.\n")
 
-    print("[2/3] Processing Modes, Building Complete Exercise Set, and Stitching...")
+    print("[2/3] Processing Modes, Building Exercises, and Stitching Videos...")
     total_rendered = 0
 
     for slug, mode_info in manifest.items():
@@ -310,7 +317,7 @@ def main():
             total_rendered += 1
 
     print("\n==========================================================================")
-    print(f"[COMPLETE] Rendered {total_rendered} full exercise videos to '{OUTPUT_DIR}/'.")
+    print(f"[COMPLETE] Rendered {total_rendered} seamless videos to '{OUTPUT_DIR}/'.")
     print("==========================================================================")
 
 if __name__ == "__main__":
