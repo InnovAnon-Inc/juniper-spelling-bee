@@ -220,27 +220,33 @@ def generate_exercise_sequences(pitch_classes: list[int], slice_map: dict[str, s
     # 1. Full Scale (Ascending & Descending)
     patterns["Full_Scale"] = scale_slices[:base_len+1] + list(reversed(scale_slices[:base_len]))
 
-    # 2. Three-Note Scalar Steps (do-re-mi, re-mi-fa, ...)
-    three_notes = []
-    for i in range(base_len):
-        three_notes.extend([scale_slices[i], scale_slices[i+1], scale_slices[i+2]])
-    patterns["Three_Notes"] = three_notes
-
-    # 3. Leap-Wise Motion / 3rds (do-mi, re-fa, mi-so, ...)
-    leap_3rds = []
-    for i in range(base_len):
-        leap_3rds.extend([scale_slices[i], scale_slices[i+2]])
-    patterns["Leap_Wise_3rds"] = leap_3rds
+#    # 2. Three-Note Scalar Steps (do-re-mi, re-mi-fa, ...)
+#    three_notes = []
+#    for i in range(base_len):
+#        three_notes.extend([scale_slices[i], scale_slices[i+1], scale_slices[i+2]])
+#    patterns["Three_Notes"] = three_notes
+#
+#    # 3. Leap-Wise Motion / 3rds (do-mi, re-fa, mi-so, ...)
+#    leap_3rds = []
+#    for i in range(base_len):
+#        leap_3rds.extend([scale_slices[i], scale_slices[i+2]])
+#    patterns["Leap_Wise_3rds"] = leap_3rds
 
     # 4. Full Diatonic 7th Chord Progression (Degree I through VII 7th Chords)
     diatonic_7ths = []
-    for root_idx in range(base_len):
+    #for root_idx in range(base_len):
+    for root_idx in [0, 3, 4, 5, 2, 1, 6]:
         # Build 1-3-5-7 arpeggio from each scale root degree
         chord = [
             scale_slices[root_idx],
             scale_slices[root_idx + 2],
             scale_slices[root_idx + 4],
             scale_slices[root_idx + 6]
+            scale_slices[root_idx + 7],
+            scale_slices[root_idx + 6]
+            scale_slices[root_idx + 4],
+            scale_slices[root_idx + 2],
+            scale_slices[root_idx],
         ]
         diatonic_7ths.extend(chord)
     patterns["Diatonic_7th_Progression"] = diatonic_7ths
