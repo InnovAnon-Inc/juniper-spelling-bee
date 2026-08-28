@@ -385,12 +385,12 @@ class PhonicsAudioNarrator:
 # ==========================================
 if __name__ == "__main__":
     print("Building Phonetic Rhyme Matrix & Indexing Homophones...")
-    phonics_engine = UnifiedPhonicsEngine(max_word_length=12)
+    phonics_engine = UnifiedPhonicsEngine(max_word_length=20)
     narrator = PhonicsAudioNarrator(engine_ref=phonics_engine, speech_rate=120, model_name="qwen3")
 
     # Generate exact rhyme groups
-    rhyme_groups = phonics_engine.generate_rhyme_groups(max_syllables=5, min_rhymes=3)
+    rhyme_groups = phonics_engine.generate_rhyme_groups(max_syllables=8, min_rhymes=3)
 
     # Narrate rhyming groups
-    for label, word_list in rhyme_groups[:2]:
+    for label, word_list in rhyme_groups:#[:2]:
         narrator.narrate_rhyme_group(label, word_list)
