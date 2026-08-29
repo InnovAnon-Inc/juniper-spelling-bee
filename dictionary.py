@@ -224,7 +224,8 @@ class PhonicsAudioNarrator:
             with urllib.request.urlopen(req, timeout=3) as response:
                 res_data = json.loads(response.read().decode('utf-8'))
                 return res_data.get("response", "").strip()
-        except Exception:
+        except Exception as e:
+            print(e) # TODO
             return None
 
     def clean_and_deduplicate_list(self, raw_words):
@@ -342,10 +343,12 @@ class PhonicsAudioNarrator:
             self._play_wav(morse_file)
 
             # 4. Part of Speech
-            self._say_and_wait(f"Part of speech: {details['pos']}.")
+            if details['pos']:
+                self._say_and_wait(f"Part of speech: {details['pos']}.")
 
             # 5. Definition
-            self._say_and_wait(f"Definition: {details['definition']}")
+            if details['definition']:
+                self._say_and_wait(f"Definition: {details['definition']}")
 
             # 6. Usage Example Sentence
             if details['example']:
@@ -365,11 +368,11 @@ class PhonicsAudioNarrator:
 
             # 10. Hypernyms (Broader categories)
             if details['hypernyms']:
-                self._say_and_wait(f"Broader types: {', '.join(details['hypernyms'])}.")
+                self._say_and_wait(f"Hypernyms: {', '.join(details['hypernyms'])}.")
 
             # 11. Hyponyms (Specific sub-types)
             if details['hyponyms']:
-                self._say_and_wait(f"Specific kinds: {', '.join(details['hyponyms'])}.")
+                self._say_and_wait(f"Hyponyms: {', '.join(details['hyponyms'])}.")
 
             self._say_and_wait(f"Word: {word}.")
             self._play_wav(morse_file)
